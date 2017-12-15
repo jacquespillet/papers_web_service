@@ -1,0 +1,16 @@
+security:
+    providers:
+        api_key_user_provider:
+            id: App\Security\ApiKeyUserProvider
+
+    firewalls:
+        main:
+            pattern: ^/api
+            stateless: false
+            simple_preauth:
+                authenticator: App\Security\ApiKeyAuthenticator
+            provider: api_key_user_provider
+    access_control:
+        - { path: ^/api, roles: ROLE_API }
+    encoders:
+        App\Entity\WebserviceUser: bcrypt
